@@ -1,14 +1,11 @@
-package ch.hsr.markovshield.benchmark
-
-import scala.concurrent.duration._
-
 import io.gatling.core.Predef._
+import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
-import io.gatling.jdbc.Predef._
+import io.gatling.http.protocol.HttpProtocolBuilder
 
 class LoadSimulation5 extends Simulation {
 
-	val httpProtocol = http
+	val httpProtocol: HttpProtocolBuilder = http
 		.baseURL("https://localhost")
 		.inferHtmlResources(BlackList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff*""", """.*\.(t|o)tf""", """.*\.png""", """.*/img.*""", """.*/fonts.*"""), WhiteList())
 		.acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -21,26 +18,26 @@ class LoadSimulation5 extends Simulation {
 
     val uri1 = "https://localhost:443"
 
-	val scn = scenario("LoadSimulation5")
+	val scn: ScenarioBuilder = scenario("LoadSimulation5")
 		.exec(http("request_0")
 			.get("/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(3)
 		.exec(http("request_1")
 			.get("/configuration/architecture/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(17)
 		.exec(http("request_2")
 			.get("/configuration/backend-apache/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(5)
 		.exec(http("request_3")
 			.get("/howto/explorer/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(7)
 		.exec(http("request_4")
 			.get("/private/request-header/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(10)
 		.exec(http("request_5")
 			.post("/login/login.php")
@@ -68,19 +65,19 @@ class LoadSimulation5 extends Simulation {
 			.headers(headers_0)
 			.resources(http("request_9")
 			.get("/private/1/printheader.php")
-			.headers(headers_0)
+			.headers(headers_0)))
 		.pause(8)
 		.exec(http("request_10")
 			.get("/session_logout/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(26)
 		.exec(http("request_11")
 			.get("/howto/edit/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(10)
 		.exec(http("request_12")
 			.get("/configuration/pre-auth/")
-			.headers(headers_0)
+			.headers(headers_0))
 
 	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
 }

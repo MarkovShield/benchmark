@@ -1,14 +1,11 @@
-package ch.hsr.markovshield.benchmark
-
-import scala.concurrent.duration._
-
 import io.gatling.core.Predef._
+import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
-import io.gatling.jdbc.Predef._
+import io.gatling.http.protocol.HttpProtocolBuilder
 
 class LoadSimulation4 extends Simulation {
 
-	val httpProtocol = http
+	val httpProtocol: HttpProtocolBuilder = http
 		.baseURL("https://localhost")
 		.inferHtmlResources(BlackList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff*""", """.*\.(t|o)tf""", """.*\.png""", """.*/img.*""", """.*/fonts.*"""), WhiteList())
 		.acceptHeader("*/*")
@@ -28,26 +25,26 @@ class LoadSimulation4 extends Simulation {
 
     val uri01 = "localhost"
 
-	val scn = scenario("LoadSimulation4")
+	val scn: ScenarioBuilder = scenario("LoadSimulation4")
 		.exec(http("request_0")
 			.get("http://" + uri01 + "/")
-			.headers(headers_0)
+			.headers(headers_0))
 		.pause(6)
 		.exec(http("request_1")
 			.get("/configuration/pre-auth/")
-			.headers(headers_1)
+			.headers(headers_1))
 		.pause(11)
 		.exec(http("request_2")
 			.get("/howto/start-stop/")
-			.headers(headers_1)
+			.headers(headers_1))
 		.pause(17)
 		.exec(http("request_3")
 			.get("/configuration/backend-apache/")
-			.headers(headers_1)
+			.headers(headers_1))
 		.pause(2)
 		.exec(http("request_4")
 			.get("/configuration/client-certificates/")
-			.headers(headers_1)
+			.headers(headers_1))
 		.pause(18)
 
 
