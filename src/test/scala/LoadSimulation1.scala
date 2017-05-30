@@ -80,5 +80,5 @@ class LoadSimulation1 extends Simulation {
 			.get("/session_logout/")
 			.headers(headers_0))
 
-	setUp(scn.inject(rampUsers(10) over (60 seconds))).protocols(httpProtocol)
+	setUp(scn.inject(rampUsers(100) over (180 seconds))).protocols(httpProtocol)
 }

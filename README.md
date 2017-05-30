@@ -8,7 +8,7 @@ gatling:test
 
 Run single simulation:
 ```bash
-gatling:testOnly LoadSimulation4
+gatling:testOnly LoadSimulation1
 ```
 
 ## View results
