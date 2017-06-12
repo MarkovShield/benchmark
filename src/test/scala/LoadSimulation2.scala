@@ -1,12 +1,12 @@
 import com.typesafe.config.{Config, ConfigFactory}
-
-import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 
-class LoadSimulation1 extends Simulation {
+import scala.concurrent.duration._
+
+class LoadSimulation2 extends Simulation {
 
 	val conf: Config = ConfigFactory.load()
 	val baseUrl: String = conf.getString("baseUrl")
@@ -29,57 +29,57 @@ class LoadSimulation1 extends Simulation {
 	val headers_7 = Map("Accept" -> "*/*")
 
 	val scn: ScenarioBuilder = scenario("LoadSimulation")
-		.exec(http("Req 0 /")
+		.exec(http("Req 0 p0")
 			.get("/")
 			.headers(headers_0))
 		.pause(3)
-		.exec(http("Req 1 /configuration/pre-auth/")
+		.exec(http("Req 1 p1")
 			.get("/configuration/pre-auth/")
 			.headers(headers_2))
 		.pause(14)
-		.exec(http("Req 2 /howto/explorer/")
+		.exec(http("Req 2 p2")
 			.get("/howto/explorer/")
 			.headers(headers_0))
 		.pause(10)
-		.exec(http("Req 3 /howto/start-stop/")
+		.exec(http("Req 3 p3")
 			.get("/howto/start-stop/")
 			.headers(headers_0))
 		.pause(15)
-		.exec(http("Req 4 /configuration/backend-apache/")
+		.exec(http("Req 4 p4")
 			.get("/configuration/backend-apache/")
 			.headers(headers_0))
 		.pause(9)
-		.exec(http("Req 5 CRIT /private/request-header/")
+		.exec(http("Req 5 CRIT p5")
 			.get("/private/request-header/")
 			.headers(headers_0))
 		.pause(2)
-		.exec(http("Req 6 /login/login.php")
+		.exec(http("Req 6 Login")
 			.post("/login/login.php")
 			.headers(headers_0)
 			.formParam("user", "hacker")
 			.formParam("password", "compass")
 			.formParam("appid", "0"))
 		.pause(7)
-		.exec(http("Req 7 CRIT /private/1/")
+		.exec(http("Req 7 CRIT p6")
 			.get("/private/1/")
 			.headers(headers_0)
-			.resources(http("Req 8 CRIT /private/1/printheader.php")
+			.resources(http("Req 8 CRIT p7")
 			.get("/private/1/printheader.php")
 			.headers(headers_0)))
 		.pause(24)
-		.exec(http("Req 9 CRIT /private/2/")
+		.exec(http("Req 9 CRIT p8")
 			.get("/private/2/")
 			.headers(headers_0)
-			.resources(http("Req 10 CRIT /private/2/chat.php")
+			.resources(http("Req 10 CRIT p9")
 			.get("/private/2/chat.php")
 			.headers(headers_0)))
 		.pause(5)
-		.exec(http("Req 11 CRIT /private/2/chat.php")
+		.exec(http("Req 11 CRIT p10")
 			.post("/private/2/chat.php")
 			.headers(headers_0)
 			.formParam("message", "Test"))
 		.pause(6)
-		.exec(http("Req 12 /session_logout/")
+		.exec(http("Req 12 Logout")
 			.get("/session_logout/")
 			.headers(headers_0))
 
